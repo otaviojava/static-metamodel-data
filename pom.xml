@@ -12,9 +12,9 @@
 
     <modules>
         <module>engine</module>
-        <module>sample</module>
     </modules>
     <properties>
+        <jakarta.nosql.version>1.0.0-b7</jakarta.nosql.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <junit.version>5.10.0</junit.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
