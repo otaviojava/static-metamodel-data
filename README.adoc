@@ -1,2 +1,7 @@
 = Jakarta Data and NoSQL Prototype
 :toc: auto
+:toclevels: 2
+
+== Jakarta Data and NoSQL Prototype
+
+=== Introduction
