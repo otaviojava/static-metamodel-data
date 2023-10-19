@@ -1,4 +1,2 @@
-= JNoSQL Lite implementation
+= Jakarta Data and NoSQL Prototype
 :toc: auto
-
-An experimental implementation that uses Java Annotation Processing instead of Reflection.
