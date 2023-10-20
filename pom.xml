@@ -12,6 +12,7 @@
 
     <modules>
         <module>engine</module>
+        <module>entity-sample</module>
     </modules>
     <properties>
         <maven.compile.version>3.11.0</maven.compile.version>
