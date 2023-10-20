@@ -64,7 +64,7 @@ class FieldAnalyzer implements Supplier<FieldResult> {
             throw new ValidationException("An error to compile the class: " +
                     metadata.getQualified(), exception);
         }
-        return new FieldResult(metadata.getName(), metadata.getFieldName());
+        return new FieldResult(metadata.getQualified(), metadata.getFieldName());
     }
 
     private JavaFileObject getFileObject(FieldModel metadata, Filer filer) {

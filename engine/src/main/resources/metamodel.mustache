@@ -21,11 +21,11 @@ import javax.annotation.processing.Generated;
 
 @StaticMetamodel({{entity}}.class)
 @Generated(value = "The StaticMetamodel of the class {{entity}} provider by Eclipse JNoSQL", date = "{{now}}")
-public final class {{className}}_ {
+public final class {{className}} {
 
    
         {{#fields}}
-        public static final Attribute {{fieldName}} = {{name}}();
+        public static final Attribute {{fieldName}} = new {{qualifiedName}}();
         {{/fields}}
 
 }

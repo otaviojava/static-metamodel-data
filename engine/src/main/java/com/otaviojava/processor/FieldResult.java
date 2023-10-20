@@ -14,5 +14,5 @@
  */
 package com.otaviojava.processor;
 
-public record FieldResult(String name, String fieldName) {
+public record FieldResult(String qualifiedName, String fieldName) {
 }
