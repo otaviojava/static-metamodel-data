@@ -77,15 +77,7 @@ public class EntityProcessor extends AbstractProcessor {
                     .map(ClassAnalyzer::get)
                     .filter(IS_NOT_BLANK).forEach(entities::add);
         }
-
-        try {
-            if (!entities.isEmpty()) {
-                MetadataAppender.append(processingEnv);
-            }
-
-        } catch (IOException | URISyntaxException exception) {
-            error(exception);
-        }
+        LOGGER.info("Entities generated: " + entities);
         return false;
     }
 
