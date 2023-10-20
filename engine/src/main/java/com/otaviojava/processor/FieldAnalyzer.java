@@ -18,21 +18,15 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import jakarta.nosql.Column;
-import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
-import org.eclipse.jnosql.mapping.Embeddable;
-import org.eclipse.jnosql.mapping.metadata.MappingType;
 
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeMirror;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 class FieldAnalyzer implements Supplier<FieldResult> {
@@ -102,64 +96,11 @@ class FieldAnalyzer implements Supplier<FieldResult> {
         }
     }
 
-    private Supplier<ValidationException> generateGetterError(String fieldName, String packageName, String entity, String s) {
-        return () -> new ValidationException(s + fieldName + " in the class: " + packageName + "." + entity);
-    }
+
 
     private Mustache createTemplate() {
         MustacheFactory factory = new DefaultMustacheFactory();
         return factory.compile(FieldAnalyzer.DEFAULT_TEMPLATE);
-    }
-
-
-    private static MappingType of(TypeMirror type, String collection, String fieldType) {
-
-        if (type.getAnnotation(Embeddable.class) != null) {
-            return MappingType.EMBEDDED;
-        }
-        if (type.getAnnotation(Entity.class) != null) {
-            return MappingType.ENTITY;
-        }
-        if (!collection.equals(CollectionUtil.DEFAULT)) {
-            return MappingType.COLLECTION;
-        }
-        if (fieldType.equals("java.util.Map")) {
-            return MappingType.MAP;
-        }
-        return MappingType.DEFAULT;
-    }
-
-    private static MappingType of(Element element, String collection, String fieldType) {
-        if (element.getAnnotation(Embeddable.class) != null) {
-            return MappingType.EMBEDDED;
-        }
-        if (element.getAnnotation(Entity.class) != null) {
-            return MappingType.ENTITY;
-        }
-        if (!collection.equals(CollectionUtil.DEFAULT)) {
-            return MappingType.COLLECTION;
-        }
-        if (fieldType.equals("java.util.Map")) {
-            return MappingType.MAP;
-        }
-        return MappingType.DEFAULT;
-    }
-
-    private String elementType(DeclaredType declaredType) {
-        Optional<? extends TypeMirror> genericMirrorOptional = declaredType.getTypeArguments().stream().findFirst();
-        if (genericMirrorOptional.isPresent()) {
-            TypeMirror genericMirror = genericMirrorOptional.get();
-            return genericMirror + ".class";
-        } else {
-            return NULL;
-        }
-    }
-
-    private boolean isEmbeddable(DeclaredType declaredType) {
-        return declaredType.getTypeArguments().stream()
-                .filter(DeclaredType.class::isInstance).map(DeclaredType.class::cast)
-                .map(DeclaredType::asElement).findFirst().map(e -> e.getAnnotation(Embeddable.class) != null ||
-                e.getAnnotation(Entity.class) != null).orElse(false);
     }
 
 }
