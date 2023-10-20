@@ -66,22 +66,12 @@ class ClassAnalyzer implements Supplier<String> {
         if (ProcessorUtil.isTypeElement(entity)) {
             TypeElement typeElement = (TypeElement) entity;
             LOGGER.info("Processing the class: " + typeElement);
-            boolean hasValidConstructor = processingEnv.getElementUtils().getAllMembers(typeElement)
-                    .stream()
-                    .filter(EntityProcessor.IS_CONSTRUCTOR.and(EntityProcessor.HAS_ACCESS))
-                    .anyMatch(EntityProcessor.IS_CONSTRUCTOR.and(EntityProcessor.HAS_ACCESS));
-            if (hasValidConstructor) {
                 try {
                     return analyze(typeElement);
                 } catch (IOException exception) {
                     error(exception);
                 }
-            } else {
-                throw new ValidationException("The class " + ProcessorUtil.getSimpleNameAsString(entity)
-                        + " must have at least an either public or default constructor");
-            }
         }
-
         return "";
     }
 
