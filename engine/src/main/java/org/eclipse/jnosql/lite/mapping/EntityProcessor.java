@@ -68,15 +68,6 @@ public class EntityProcessor extends AbstractProcessor {
     static final Predicate<Element> HAS_ANNOTATION = HAS_COLUMN_ANNOTATION.or(HAS_ID_ANNOTATION);
     static final Predicate<Element> IS_FIELD = el -> el.getKind() == ElementKind.FIELD;
 
-    private static final Map<String, String> SPI_FILES = Map.of(
-            "org.eclipse.jnosql.mapping.metadata.EntitiesMetadata",
-            "org.eclipse.jnosql.lite.mapping.metadata.LiteEntitiesMetadata",
-            "org.eclipse.jnosql.mapping.metadata.ClassConverter",
-            "org.eclipse.jnosql.lite.mapping.metadata.LiteClassConverter",
-            "org.eclipse.jnosql.mapping.metadata.ClassScanner",
-            "org.eclipse.jnosql.lite.mapping.metadata.LiteClassScanner",
-            "org.eclipse.jnosql.mapping.metadata.ConstructorBuilderSupplier",
-            "org.eclipse.jnosql.lite.mapping.metadata.LiteConstructorBuilderSupplier");
     private final Mustache template;
 
     public EntityProcessor() {
@@ -101,10 +92,6 @@ public class EntityProcessor extends AbstractProcessor {
 
         try {
             if (!entities.isEmpty()) {
-                createEntitiesMetadata(entities);
-
-                LOGGER.info("Appending the metadata interfaces");
-                createResources();
                 MetadataAppender.append(processingEnv);
             }
 
@@ -114,23 +101,7 @@ public class EntityProcessor extends AbstractProcessor {
         return false;
     }
 
-    private void createEntitiesMetadata(List<String> entities) throws IOException {
-        LOGGER.info("Creating the default EntitiesMetadata class");
-        EntitiesMetadataModel metadata = new EntitiesMetadataModel(entities);
-        Filer filer = processingEnv.getFiler();
-        JavaFileObject fileObject = filer.createSourceFile(metadata.getQualified());
-        try (Writer writer = fileObject.openWriter()) {
-            template.execute(writer, metadata);
-        }
-    }
 
-    private void createResources() throws IOException {
-        LOGGER.info("Creating the SPI files, total: " + SPI_FILES.size());
-        for (Map.Entry<String, String> entry : SPI_FILES.entrySet()) {
-            createResource(entry.getKey(), entry.getValue());
-        }
-
-    }
 
     private void createResource(String reference, String implementation) throws IOException {
         Filer filer = processingEnv.getFiler();
