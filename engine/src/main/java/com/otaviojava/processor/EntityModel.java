@@ -24,29 +24,15 @@ final class EntityModel extends BaseMappingModel {
 
     private final String name;
 
-    private final List<String> fields;
+    private final List<FieldResult> fields;
 
-    private final boolean embedded;
-    private final String inheritanceParameter;
-
-    private final boolean notConcrete;
-
-    private final boolean entityAnnotation;
-
-    private final boolean hasInheritanceAnnotation;
     EntityModel(String packageName, String entity, String name,
-                       List<String> fields, boolean embedded, boolean notConcrete,
-                       String inheritanceParameter,
-                       boolean entityAnnotation, boolean hasInheritanceAnnotation) {
+                       List<FieldResult> fields) {
         this.packageName = packageName;
         this.entity = entity;
         this.name = name;
         this.fields = fields;
-        this.embedded = embedded;
-        this.notConcrete = notConcrete;
-        this.inheritanceParameter = inheritanceParameter;
-        this.entityAnnotation = entityAnnotation;
-        this.hasInheritanceAnnotation = hasInheritanceAnnotation;
+
     }
 
     public String getPackageName() {
@@ -62,7 +48,7 @@ final class EntityModel extends BaseMappingModel {
     }
 
     public String getClassName() {
-        return entity + "EntityMetaData";
+        return entity + "_";
     }
 
     public String getQualified() {
@@ -73,28 +59,8 @@ final class EntityModel extends BaseMappingModel {
         return name;
     }
 
-    public List<String> getFields() {
+    public List<FieldResult> getFields() {
         return fields;
-    }
-
-    public boolean isEmbedded() {
-        return embedded;
-    }
-
-    public String getInheritanceParameter() {
-        return inheritanceParameter;
-    }
-
-    public boolean isNotConcrete() {
-        return notConcrete;
-    }
-
-    public boolean isEntityAnnotation() {
-        return entityAnnotation;
-    }
-
-    public boolean isHasInheritanceAnnotation() {
-        return hasInheritanceAnnotation;
     }
 
     @Override
@@ -104,10 +70,6 @@ final class EntityModel extends BaseMappingModel {
                 ", entity='" + entity + '\'' +
                 ", name='" + name + '\'' +
                 ", fields=" + fields +
-                ", embedded=" + embedded +
-                ", inheritanceParameter='" + inheritanceParameter + '\'' +
-                ", notConcrete=" + notConcrete +
-                ", entityAnnotation=" + entityAnnotation +
                 '}';
     }
 }

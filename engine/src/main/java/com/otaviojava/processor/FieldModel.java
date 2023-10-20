@@ -55,6 +55,10 @@ final class FieldModel extends BaseMappingModel {
         return entity+ "_" + ProcessorUtil.capitalize(fieldName) + "Attribute";
     }
 
+    public String getFieldName() {
+        return fieldName;
+    }
+
 
     public static FieldMetaDataBuilder builder() {
         return new FieldMetaDataBuilder();

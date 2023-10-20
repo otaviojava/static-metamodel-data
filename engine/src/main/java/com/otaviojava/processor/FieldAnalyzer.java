@@ -33,10 +33,9 @@ import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-class FieldAnalyzer implements Supplier<String> {
+class FieldAnalyzer implements Supplier<FieldResult> {
 
     private static final String DEFAULT_TEMPLATE = "attribute.mustache";
     private static final String NULL = "null";
@@ -55,7 +54,7 @@ class FieldAnalyzer implements Supplier<String> {
     }
 
     @Override
-    public String get() {
+    public FieldResult get() {
         FieldModel metadata = getMetaData();
         Filer filer = processingEnv.getFiler();
         JavaFileObject fileObject = getFileObject(metadata, filer);
@@ -65,7 +64,7 @@ class FieldAnalyzer implements Supplier<String> {
             throw new ValidationException("An error to compile the class: " +
                     metadata.getQualified(), exception);
         }
-        return metadata.getQualified();
+        return new FieldResult(metadata.getName(), metadata.getFieldName());
     }
 
     private JavaFileObject getFileObject(FieldModel metadata, Filer filer) {
