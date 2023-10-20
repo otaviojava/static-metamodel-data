@@ -80,9 +80,6 @@ class FieldAnalyzer implements Supplier<String> {
 
     private FieldModel getMetaData() {
         final String fieldName = field.getSimpleName().toString();
-        final Predicate<Element> validName = el -> el.getSimpleName().toString()
-                .contains(ProcessorUtil.capitalize(fieldName));
-
         Column column = field.getAnnotation(Column.class);
         Id id = field.getAnnotation(Id.class);
 
@@ -93,6 +90,7 @@ class FieldAnalyzer implements Supplier<String> {
         return FieldModel.builder()
                 .packageName(packageName)
                 .name(name)
+                .fieldName(fieldName)
                 .entity(entityName)
                 .build();
     }

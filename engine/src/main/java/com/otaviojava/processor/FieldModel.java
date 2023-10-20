@@ -25,6 +25,9 @@ final class FieldModel extends BaseMappingModel {
 
     private String packageName;
     private String name;
+
+    private String fieldName;
+
     private String entity;
 
     private FieldModel() {
@@ -49,7 +52,7 @@ final class FieldModel extends BaseMappingModel {
     }
 
     public String getClassName() {
-        return entity+"_" + ProcessorUtil.capitalize(name) + "Attribute";
+        return entity+ "_" + ProcessorUtil.capitalize(fieldName) + "Attribute";
     }
 
 
@@ -78,6 +81,11 @@ final class FieldModel extends BaseMappingModel {
 
         public FieldMetaDataBuilder entity(String entity) {
             this.fieldModel.entity = entity;
+            return this;
+        }
+
+        public FieldMetaDataBuilder fieldName(String fieldName) {
+            this.fieldModel.fieldName = fieldName;
             return this;
         }
 
