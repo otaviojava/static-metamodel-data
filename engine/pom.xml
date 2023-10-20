@@ -37,7 +37,7 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.jnosql.mapping</groupId>
-            <artifactId>jnosql-mapping-key-value</artifactId>
+            <artifactId>jnosql-mapping-core</artifactId>
             <version>1.0.2</version>
         </dependency>
         <dependency>
