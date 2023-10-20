@@ -50,7 +50,7 @@ class FieldAnalyzer implements Supplier<FieldResult> {
         this.field = field;
         this.processingEnv = processingEnv;
         this.entity = entity;
-        this.template = createTemplate(DEFAULT_TEMPLATE);
+        this.template = createTemplate();
     }
 
     @Override
@@ -106,9 +106,9 @@ class FieldAnalyzer implements Supplier<FieldResult> {
         return () -> new ValidationException(s + fieldName + " in the class: " + packageName + "." + entity);
     }
 
-    private Mustache createTemplate(String template) {
+    private Mustache createTemplate() {
         MustacheFactory factory = new DefaultMustacheFactory();
-        return factory.compile(template);
+        return factory.compile(FieldAnalyzer.DEFAULT_TEMPLATE);
     }
 
 

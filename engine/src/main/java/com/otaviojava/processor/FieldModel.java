@@ -14,12 +14,6 @@
  */
 package com.otaviojava.processor;
 
-import org.eclipse.jnosql.mapping.Convert;
-
-import javax.lang.model.type.MirroredTypeException;
-import javax.lang.model.type.TypeMirror;
-import java.util.List;
-import java.util.Objects;
 
 final class FieldModel extends BaseMappingModel {
 
