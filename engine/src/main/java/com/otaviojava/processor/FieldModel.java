@@ -25,27 +25,7 @@ final class FieldModel extends BaseMappingModel {
 
     private String packageName;
     private String name;
-    private String type;
     private String entity;
-    private String reader;
-    private String writer;
-    private String fieldName;
-    private boolean id;
-    private String converter;
-
-    private String mappingType;
-
-    private String typeConverter;
-
-    private List<ValueAnnotationModel> valueByAnnotation;
-
-    private String elementType;
-
-    private boolean embeddable;
-
-    private String collectionInstance;
-
-    private String supplierElement;
 
     private FieldModel() {
     }
@@ -58,93 +38,20 @@ final class FieldModel extends BaseMappingModel {
         return name;
     }
 
-    public String getType() {
-        return type;
-    }
 
     public String getEntity() {
         return entity;
     }
 
-    public String getReader() {
-        return reader;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
 
     public String getQualified() {
         return packageName + "." + getClassName();
     }
 
     public String getClassName() {
-        return entity + ProcessorUtil.capitalize(fieldName) + "FieldMetaData";
+        return entity+"_" + ProcessorUtil.capitalize(name) + "Attribute";
     }
 
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public boolean isId() {
-        return id;
-    }
-
-
-    public String getConverter() {
-        return converter;
-    }
-
-    public String getMappingType() {
-        return mappingType;
-    }
-
-    public String getTypeConverter() {
-        return typeConverter;
-    }
-
-    public List<ValueAnnotationModel> getValueByAnnotation() {
-        return valueByAnnotation;
-    }
-
-    public String getElementType() {
-        return elementType;
-    }
-
-    public boolean isEmbeddable() {
-        return embeddable;
-    }
-
-    public String getCollectionInstance() {
-        return collectionInstance;
-    }
-
-    public String getSupplierElement() {
-        return supplierElement;
-    }
-
-
-    @Override
-    public String toString() {
-        return "FieldModel{" +
-                "packageName='" + packageName + '\'' +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", entity='" + entity + '\'' +
-                ", reader='" + reader + '\'' +
-                ", writer='" + writer + '\'' +
-                ", fieldName='" + fieldName + '\'' +
-                ", id=" + id +
-                ", converter='" + converter + '\'' +
-                ", mappingType='" + mappingType + '\'' +
-                ", typeConverter='" + typeConverter + '\'' +
-                ", valueByAnnotation=" + valueByAnnotation +
-                ", elementType='" + elementType + '\'' +
-                ", embeddable=" + embeddable +
-                ", collectionInstance='" + collectionInstance + '\'' +
-                ", supplierElement='" + supplierElement + '\'' +
-                '}';
-    }
 
     public static FieldMetaDataBuilder builder() {
         return new FieldMetaDataBuilder();
@@ -157,9 +64,6 @@ final class FieldModel extends BaseMappingModel {
 
         private FieldMetaDataBuilder() {
             this.fieldModel = new FieldModel();
-            this.fieldModel.converter = "null";
-            this.fieldModel.mappingType = "null";
-            this.fieldModel.typeConverter = "null";
         }
 
         public FieldMetaDataBuilder packageName(String packageName) {
@@ -172,81 +76,10 @@ final class FieldModel extends BaseMappingModel {
             return this;
         }
 
-        public FieldMetaDataBuilder type(String type) {
-            this.fieldModel.type = type;
-            return this;
-        }
-
         public FieldMetaDataBuilder entity(String entity) {
             this.fieldModel.entity = entity;
             return this;
         }
-
-        public FieldMetaDataBuilder reader(String reader) {
-            this.fieldModel.reader = reader;
-            return this;
-        }
-
-        public FieldMetaDataBuilder writer(String writer) {
-            this.fieldModel.writer = writer;
-            return this;
-        }
-
-        public FieldMetaDataBuilder fieldName(String fieldName) {
-            this.fieldModel.fieldName = fieldName;
-            return this;
-        }
-
-        public FieldMetaDataBuilder id(boolean id) {
-            this.fieldModel.id = id;
-            return this;
-        }
-
-        public FieldMetaDataBuilder converter(Convert converter) {
-            if (Objects.nonNull(converter)) {
-                try {
-                    this.fieldModel.converter = String.format("new %s();", converter.value().getName());
-                    this.fieldModel.typeConverter = converter.value().getName().concat(".class");
-                } catch (MirroredTypeException exception) {
-                    TypeMirror typeMirror = exception.getTypeMirror();
-                    this.fieldModel.converter = String.format("new %s()", typeMirror);
-                    this.fieldModel.typeConverter = typeMirror.toString().concat(".class");
-                }
-
-            }
-            return this;
-        }
-
-        public FieldMetaDataBuilder mappingType(String mappingType) {
-            this.fieldModel.mappingType = mappingType;
-            return this;
-        }
-
-        public FieldMetaDataBuilder valueByAnnotation(List<ValueAnnotationModel> valueByAnnotation) {
-            this.fieldModel.valueByAnnotation = valueByAnnotation;
-            return this;
-        }
-
-        public FieldMetaDataBuilder elementType(String elementType) {
-            this.fieldModel.elementType = elementType;
-            return this;
-        }
-
-        public FieldMetaDataBuilder embeddable(boolean embeddable) {
-            this.fieldModel.embeddable = embeddable;
-            return this;
-        }
-
-        public FieldMetaDataBuilder collectionInstance(String collectionInstance) {
-            this.fieldModel.collectionInstance = collectionInstance;
-            return this;
-        }
-
-        public FieldMetaDataBuilder supplierElement(String supplierElement) {
-            this.fieldModel.supplierElement = supplierElement;
-            return this;
-        }
-
 
         public FieldModel build() {
            return fieldModel;
