@@ -56,7 +56,6 @@ public class EntityProcessor extends AbstractProcessor {
 
     private static final Logger LOGGER = Logger.getLogger(EntityProcessor.class.getName());
     private static final EnumSet<Modifier> MODIFIERS = EnumSet.of(PUBLIC, PROTECTED);
-    private static final String TEMPLATE = "entitiesmetadata.mustache";
     static final Predicate<Element> IS_CONSTRUCTOR = el -> el.getKind() == ElementKind.CONSTRUCTOR;
     static final Predicate<String> IS_BLANK = String::isBlank;
     static final Predicate<String> IS_NOT_BLANK = IS_BLANK.negate();
@@ -68,11 +67,6 @@ public class EntityProcessor extends AbstractProcessor {
     static final Predicate<Element> HAS_ANNOTATION = HAS_COLUMN_ANNOTATION.or(HAS_ID_ANNOTATION);
     static final Predicate<Element> IS_FIELD = el -> el.getKind() == ElementKind.FIELD;
 
-    private final Mustache template;
-
-    public EntityProcessor() {
-        this.template = createTemplate();
-    }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations,
@@ -112,11 +106,6 @@ public class EntityProcessor extends AbstractProcessor {
         pw.close();
     }
 
-
-    private Mustache createTemplate() {
-        MustacheFactory factory = new DefaultMustacheFactory();
-        return factory.compile(TEMPLATE);
-    }
 
     private void error(Exception exception) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "failed to write extension file: "
