@@ -12,7 +12,7 @@
 
     <modules>
         <module>build-time</module>
-        <module>entity-sample</module>
+        <module>entity-sample-build</module>
     </modules>
     <properties>
         <maven.compile.version>3.11.0</maven.compile.version>
