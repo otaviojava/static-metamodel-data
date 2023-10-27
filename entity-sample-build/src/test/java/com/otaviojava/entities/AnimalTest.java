@@ -1,7 +1,6 @@
 package com.otaviojava.entities;
 
 import jakarta.data.Sort;
-import jakarta.data.metamodel.Attribute;
 import jakarta.data.metamodel.AttributeInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
