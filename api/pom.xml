@@ -23,7 +23,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>entity-sample-build</artifactId>
+    <artifactId>api</artifactId>
     <packaging>jar</packaging>
 
     <properties>
