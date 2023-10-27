@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>engine</module>
+        <module>build-time</module>
         <module>entity-sample</module>
     </modules>
     <properties>
