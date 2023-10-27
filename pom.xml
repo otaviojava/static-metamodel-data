@@ -12,6 +12,7 @@
 
     <modules>
         <module>build-time</module>
+        <module>runtime</module>
         <module>entity-sample-build</module>
     </modules>
     <properties>
