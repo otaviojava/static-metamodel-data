@@ -15,7 +15,7 @@
 package {{packageName}};
 
 
-import jakarta.data.metamodel.Attribute;
+import jakarta.data.metamodel.AttributeInfo;
 import jakarta.data.metamodel.StaticMetamodel;
 import javax.annotation.processing.Generated;
 
@@ -25,7 +25,7 @@ public final class {{className}} {
 
    
         {{#fields}}
-        public static final Attribute {{fieldName}} = new {{qualifiedName}}();
+        public static final AttributeInfo {{fieldName}} = new {{qualifiedName}}();
         {{/fields}}
 
 }

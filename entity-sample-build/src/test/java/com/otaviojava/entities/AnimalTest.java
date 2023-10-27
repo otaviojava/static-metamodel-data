@@ -2,6 +2,7 @@ package com.otaviojava.entities;
 
 import jakarta.data.Sort;
 import jakarta.data.metamodel.Attribute;
+import jakarta.data.metamodel.AttributeInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,7 +15,7 @@ public class AnimalTest {
 
     @ParameterizedTest(name = "should to run the attribute {1}")
     @MethodSource("fields")
-    public void shouldGenerateValidAttribute(Attribute attribute, String fieldName) {
+    public void shouldGenerateValidAttribute(AttributeInfo attribute, String fieldName) {
         assertSoftly(soft -> {
             soft.assertThat(attribute.name()).isEqualTo(fieldName);
             soft.assertThat(attribute.asc()).isEqualTo(Sort.asc(fieldName));
