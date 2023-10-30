@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.util.Objects;
 
 public record FieldAttributeInfo(String name) implements AttributeInfo {
+
     @Override
     public Sort asc() {
         return Sort.asc(name);
