@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class MetaDataProcessor implements Extension {
+public class MetaDataExtension implements Extension {
 
-    private static final Logger LOGGER = Logger.getLogger(MetaDataProcessor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MetaDataExtension.class.getName());
 
     private static final Set<Class<?>> CLASSES = new HashSet<>();
     void beforeBeanDiscovery(@Observes final BeforeBeanDiscovery event) {
