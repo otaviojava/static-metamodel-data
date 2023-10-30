@@ -27,9 +27,15 @@
     <packaging>jar</packaging>
 
     <properties>
+        <classgraph.version>4.8.162</classgraph.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>${classgraph.version}</version>
+        </dependency>
         <dependency>
             <groupId>jakarta.nosql</groupId>
             <artifactId>nosql-core</artifactId>
@@ -49,8 +55,14 @@
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <version>4.0.1</version>
+            <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-junit5</artifactId>
+            <version>4.0.0.Final</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
