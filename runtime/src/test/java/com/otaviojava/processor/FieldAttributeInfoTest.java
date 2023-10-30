@@ -30,4 +30,19 @@ class FieldAttributeInfoTest {
         });
     }
 
+    @Test
+    public void shouldShouldFieldAttributeInfoById() throws NoSuchFieldException {
+        var id = Person.class.getDeclaredField("id");
+        var field = FieldAttributeInfo.of(id);
+
+        SoftAssertions.assertSoftly(soft -> {
+            String fieldName = "_id";
+            soft.assertThat(field.name()).isEqualTo(fieldName);
+            soft.assertThat(field.asc()).isEqualTo(Sort.asc(fieldName));
+            soft.assertThat(field.ascIgnoreCase()).isEqualTo(Sort.ascIgnoreCase(fieldName));
+            soft.assertThat(field.desc()).isEqualTo(Sort.desc(fieldName));
+            soft.assertThat(field.descIgnoreCase()).isEqualTo(Sort.descIgnoreCase(fieldName));
+        });
+    }
+
 }
