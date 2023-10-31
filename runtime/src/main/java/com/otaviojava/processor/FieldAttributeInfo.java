@@ -8,7 +8,7 @@ import jakarta.nosql.Id;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
-public record FieldAttributeInfo(String name) implements AttributeInfo {
+record FieldAttributeInfo(String name) implements AttributeInfo {
 
     @Override
     public Sort asc() {
@@ -35,7 +35,7 @@ public record FieldAttributeInfo(String name) implements AttributeInfo {
         return name;
     }
 
-    public static FieldAttributeInfo of(Field field){
+    static FieldAttributeInfo of(Field field){
         Objects.requireNonNull(field, "field cannot be null");
         var id = field.getAnnotation(Id.class);
         if (id != null) {

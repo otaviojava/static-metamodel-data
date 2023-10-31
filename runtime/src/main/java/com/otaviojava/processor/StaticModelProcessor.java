@@ -18,22 +18,40 @@ class StaticModelProcessor<T> implements Consumer<Class<T>> {
 
     private static final Logger LOGGER = Logger.getLogger(StaticModelProcessor.class.getName());
 
+    static final StaticModelProcessor<?> INSTANCE = new StaticModelProcessor<>();
+
+    private StaticModelProcessor() {
+    }
+
     @Override
     public void accept(Class<T> type) {
+        LOGGER.info("Processing entity: " + type);
         StaticMetamodel metamodel = type.getAnnotation(StaticMetamodel.class);
         Class<?> entity = metamodel.value();
-        Field[] fields = type.getDeclaredFields();
         Map<String, Field> fieldMap = Stream.of(entity.getDeclaredFields())
                 .collect(toMap(Field::getName, identity()));
-        for (Field field : fields) {
+        for (Field field : type.getDeclaredFields()) {
             if (AttributeInfo.class.equals(field.getType())) {
-                String name = field.getName();
+                var attribute = fieldMap.get(field.getName());
+                if(attribute!=null){
+                    setStaticField(field, attribute);
+                }
 
             }
 
-            LOGGER.info("Processing entity: " + entity);
 
 
+
+        }
+    }
+
+    private static void setStaticField(Field field, Field attribute) {
+        attribute.setAccessible(true);
+        FieldAttributeInfo.of(attribute);
+        try {
+            field.set(null, FieldAttributeInfo.of(attribute));
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 }
