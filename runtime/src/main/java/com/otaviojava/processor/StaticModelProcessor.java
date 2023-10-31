@@ -6,9 +6,7 @@ import jakarta.data.metamodel.StaticMetamodel;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.function.Function.identity;
