@@ -2,6 +2,31 @@
 :toc: auto
 :toclevels: 2
 
-== Jakarta Data and NoSQL Prototype
+This repository is a prototype for exploring and utilizing the Jakarta Data StaticMetamodel annotation. The goal is to generate a model for Jakarta NoSQL and Jakarta Persistence entities using two different approaches: one at build time using a Java Annotation Processor and the other at runtime using reflection and CDI extension.
 
-=== Introduction
+== Build Time Generation
+
+In this approach, a Java Annotation Processor is used to generate a final and immutable model at build time. The processor generates `AttributeInfo` implementations using a Mustache template as immutable classes.
+
+== Runtime Generation
+
+The second approach involves using reflection and CDI extension to generate the model at runtime. It scans a `StaticMetamodel` class and sets the instances matching the field names.
+
+=== Project Structure
+
+The project is structured into three main folders:
+
+==== `build-time`
+
+The `build-time` folder contains the project engine for generating classes at build time. It uses a Mustache template to generate immutable `AttributeInfo` implementations. This approach ensures compile-time safety and efficiency.
+
+==== `runtime`
+
+The `runtime` folder contains the engine that operates in reflection with CDI. It scans a `StaticMetamodel` class and sets instances matching the field names. This approach allows for runtime generation and flexibility.
+
+==== `entity-sample-build`
+
+The `entity-sample-build` folder includes sample entities and tests for the build-time project. This folder is a useful resource to demonstrate and test the build-time generation process.
+
+Each of these folders serves a specific purpose in the prototype's development.
+
